@@ -13,7 +13,7 @@
                             <a class="nav-link" href="/home">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/mahasiswati">Mahasiswa</a>
+                            <a class="nav-link" href="/select-view">Mahasiswa</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/dosen">Dosen</a>

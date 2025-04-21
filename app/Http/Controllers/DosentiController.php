@@ -14,7 +14,7 @@ class DosentiController extends Controller
     public function index()
     {
         //
-        $dosens = Dosenti::latest()->paginate(1);
+        $dosens = Dosenti::latest()->paginate(2);
         return view('dosensti.index', compact('dosens'));
     }
 

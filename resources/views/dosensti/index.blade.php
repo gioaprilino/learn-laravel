@@ -38,7 +38,7 @@
                                             <td>{{ $dosen->nip }}</td>
                                             <td>{{ $dosen->email }}</td>
                                             <td>{{ $dosen->nohp }}</td>
-                                            <td>{{ $dosen->keahlian }}</td>
+                                            <td>{{ $dosen->bidang }}</td>
                                             <td>
                                                 <div class="d-flex">
                                                     <a href="{{ route('dosensti.edit', $dosen->id) }}" class="btn btn-sm btn-warning me-2">Edit</a>
