@@ -7,6 +7,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\DosenController;
 use App\Http\Controllers\DosenpnpController;
 use App\Http\Controllers\DosentiController;
+use App\Http\Controllers\PenggunaController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -259,3 +260,10 @@ Route::post('dosenti', [DosentiController::class,'store'])->name('dosensti.store
 Route::get('dosenti/{id}/edit', [DosentiController::class,'edit'])->name('dosensti.edit');
 Route::put('dosenti/{id}', [DosentiController::class,'update'])->name('dosensti.update');
 Route::delete('dosenti/{id}', [DosentiController::class,'destroy'])->name('dosensti.destroy');
+
+Route::get('pengguna/create', [PenggunaController::class, 'create'])->name('penggunas.create');
+Route::post('pengguna', [PenggunaController::class, 'store'])->name('penggunas.store');
+Route::get('pengguna', [PenggunaController::class, 'index'])->name('penggunas.index');
+Route::get('pengguna/{id}/edit', [PenggunaController::class, 'edit'])->name('penggunas.edit');
+Route::put('pengguna/{id}', [PenggunaController::class, 'update'])->name('penggunas.update');
+Route::delete('pengguna/{id}', [PenggunaController::class, 'destroy'])->name('penggunas.destroy');
