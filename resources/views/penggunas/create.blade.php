@@ -60,6 +60,11 @@
    @enderror
    <br>
 
+   <label>Upload File (pdf,jpg,jpeg,png)</label>
+   <input type="file" name="file_upload" accept="pdf,jpg,jpeg,png">
+   @error('file_upload')
+   <br><small style="color: red>{{$message}}</small>
+   @enderror
 
    <button type="submit">Simpan</button>
 </form>

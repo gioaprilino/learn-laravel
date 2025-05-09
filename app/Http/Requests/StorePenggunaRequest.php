@@ -26,7 +26,8 @@ class StorePenggunaRequest extends FormRequest
             'name'=> 'required|string|max:100',
             'email'=>'required|email|unique:penggunas',
             'password'=> 'required|min:6|confirmed',
-            'phone'=> 'nullable|digits_between:10,13'
+            'phone'=> 'nullable|digits_between:10,13',
+            'file_upload'=>'required|file|mimes:pdf,jpg,jpegpng|max:2048'
         ];
     }
     public function messages(): array{
@@ -36,7 +37,8 @@ class StorePenggunaRequest extends FormRequest
             'email.unique'=> 'email sudah pernah digunakan',
             'password.required'=> 'password tidak diperbolehkan kosong',
             'password.confirmed'=> 'password tidak valid',
-            'password.min:6'=> 'password tidak boleh kurang dari 6',
+            'password.min'=> 'password tidak boleh kurang dari 6',
+            'file_upload.required'=> 'file upload tidak diperbolehkan kosong',
         ];
     }
 }
