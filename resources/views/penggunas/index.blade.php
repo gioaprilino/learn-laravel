@@ -4,7 +4,7 @@
 @section('content')
 <h2>Daftar Penggunas</h2>
 
-
+<a href="{{route('penggunas.create')}}">Tambah Pengguna</a>
 @if(session('success'))
  <div style="color:green;">{{ session('success') }}</div>
 @endif
@@ -17,6 +17,7 @@
            <th>Email</th>
            <th>Telepon</th>
            <th>Aksi</th>
+           <th>Foto</th>
        </tr>
    </thead>
    <tbody>
@@ -25,6 +26,12 @@
            <td>{{ $user->name }}</td>
            <td>{{ $user->email }}</td>
            <td>{{ $user->phone }}</td>
+           <td>
+            @if ($user->file_upload)
+            <img src="{{asset('storage/'. $user->file_upload)}}" alt="foto pengguna" width="200" height="200">
+            @else
+            <span style="color: grey"> tidak ada foto </span>
+           @endif</td>
            <td>
                <a href="{{ route('penggunas.edit', $user->id) }}">Edit</a>
                <form action="{{ route('penggunas.destroy', $user->id) }}" method="POST" style="display:inline;">

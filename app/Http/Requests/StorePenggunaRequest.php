@@ -27,7 +27,7 @@ class StorePenggunaRequest extends FormRequest
             'email'=>'required|email|unique:penggunas',
             'password'=> 'required|min:6|confirmed',
             'phone'=> 'nullable|digits_between:10,13',
-            'file_upload'=>'required|file|mimes:pdf,jpg,jpegpng|max:2048'
+            'file_upload'=>'required|file|mimes:jpg,jpeg,png,HEIC|max:2048'
         ];
     }
     public function messages(): array{

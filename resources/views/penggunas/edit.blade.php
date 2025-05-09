@@ -16,7 +16,7 @@
 @endif
 
 
-<form action="{{ route('penggunas.update', $pengguna->id) }}" method="POST">
+<form action="{{ route('penggunas.update', $pengguna->id) }}" method="POST" enctype="multipart/form-data">
    @csrf
    @method('PUT')
 
@@ -31,6 +31,19 @@
 
    <label>Telepon:</label>
    <input type="text" name="phone" value="{{ old('phone', $pengguna->phone) }}"><br>
+
+
+   @if ($pengguna->file_upload)
+   <div>
+    <img src="{{asset('storage/'. $pengguna->file_upload)}}" alt="foto pengguna" width="200" height="200">
+   </div>
+
+   @endif
+   <label>Upload Foto Baru (pdf,jpg,jpeg,png)</label>
+   <input type="file" name="file_upload" accept="pdf,jpg,jpeg,png">
+   @error('file_upload')
+   <br><small style="color: red>{{$message}}</small>
+   @enderror
 
 
    <button type="submit">Update</button>

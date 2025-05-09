@@ -7,6 +7,7 @@ use App\Http\Requests\UpdatePenggunaRequest;
 use App\Models\Pengguna;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class PenggunaController extends Controller
 {
@@ -59,7 +60,7 @@ class PenggunaController extends Controller
         }
 
         Pengguna::create($data);
-        return redirect()->route('penggunas.create')->with('success', 'Pengguna berhasil ditambahkan');
+        return redirect()->route('penggunas.index')->with('success', 'Pengguna berhasil ditambahkan');
     }
 
     /**
@@ -90,8 +91,20 @@ class PenggunaController extends Controller
         //     'name' => 'required|string|max:100',
         //     'phone' => 'nullable|digits_between:10,13'
         // ]);
-        $data = $request->validated();
+        
         $pengguna = Pengguna::findOrFail($id);
+        $data = $request->validated();
+        if ($request->hasFile('file_upload')){
+        //hapus file lama sebelumnya
+            if ($pengguna->file_upload && Storage::disk('public')->exists($pengguna->file_upload)) {
+                #code
+                Storage::disk('public')->delete($pengguna->file_upload);
+            }
+            $file = $request->file('file_upload');
+            $filename = time().'_'.$file->getClientOriginalName();
+            $path = $file->storeAs('upload', $filename,'public');
+            $data ['file_upload'] = $path;
+        }
         // $pengguna->update([
         //     'name' => $request->name,
         //     'phone' => $request->phone,

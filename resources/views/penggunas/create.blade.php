@@ -21,7 +21,7 @@
 @endif
 
 
-<form action="{{ route('penggunas.store') }}" method="POST">
+<form action="{{ route('penggunas.store') }}" method="POST" enctype="multipart/form-data">
    @csrf
 
 
