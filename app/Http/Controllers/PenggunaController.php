@@ -50,6 +50,14 @@ class PenggunaController extends Controller
 
         $data = $request->validated();
         $data['password'] = Hash::make($data['password']);
+
+        if ($request->hasFile('file_upload')){
+            $file = $request->file('file_upload');
+            $filename = time().'_'.$file->getClientOriginalName();
+            $path = $file->storeAs('upload', $filename,'public');
+            $data ['file_upload'] = $path;
+        }
+
         Pengguna::create($data);
         return redirect()->route('penggunas.create')->with('success', 'Pengguna berhasil ditambahkan');
     }
