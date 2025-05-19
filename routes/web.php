@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\DashboardController;
+
+
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\mahasiswa\MahasiswaController;
 use App\Http\Controllers\TeknisiController;
@@ -9,9 +13,6 @@ use App\Http\Controllers\DosenpnpController;
 use App\Http\Controllers\DosentiController;
 use App\Http\Controllers\PenggunaController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
 Route::get('mahasiswa', action: [MahasiswaController::class, 'index']);
 
@@ -261,9 +262,43 @@ Route::get('dosenti/{id}/edit', [DosentiController::class,'edit'])->name('dosens
 Route::put('dosenti/{id}', [DosentiController::class,'update'])->name('dosensti.update');
 Route::delete('dosenti/{id}', [DosentiController::class,'destroy'])->name('dosensti.destroy');
 
-Route::get('pengguna/create', [PenggunaController::class, 'create'])->name('penggunas.create');
-Route::post('pengguna', [PenggunaController::class, 'store'])->name('penggunas.store');
-Route::get('pengguna', [PenggunaController::class, 'index'])->name('penggunas.index');
-Route::get('pengguna/{id}/edit', [PenggunaController::class, 'edit'])->name('penggunas.edit');
-Route::put('pengguna/{id}', [PenggunaController::class, 'update'])->name('penggunas.update');
-Route::delete('pengguna/{id}', [PenggunaController::class, 'destroy'])->name('penggunas.destroy');
+// Route::get('pengguna/create', [PenggunaController::class, 'create'])->name('penggunas.create');
+// Route::post('pengguna', [PenggunaController::class, 'store'])->name('penggunas.store');
+// Route::get('pengguna', [PenggunaController::class, 'index'])->name('penggunas.index');
+// Route::get('pengguna/{id}/edit', [PenggunaController::class, 'edit'])->name('penggunas.edit');
+// Route::put('pengguna/{id}', [PenggunaController::class, 'update'])->name('penggunas.update');
+// Route::delete('pengguna/{id}', [PenggunaController::class, 'destroy'])->name('penggunas.destroy');
+
+
+Route::get('/', function () {
+    return view('welcome');
+});
+
+
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware('auth')->group(function () {
+});
+
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+    Route::prefix('profile')->group(function () {
+        Route::get('/', [ProfileController::class, 'edit'])->name('profile.edit');
+        Route::patch('/', [ProfileController::class, 'update'])->name('profile.update');
+        Route::delete('/', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    });
+
+    Route::middleware(['auth', 'admin'])->group(function () {
+        Route::resource('penggunas', PenggunaController::class);
+    });
+});
+
+Route::middleware('auth')->group(function () {
+    Route::resource('penggunas', PenggunaController::class);
+});
+
+require __DIR__.'/auth.php';

@@ -119,5 +119,8 @@ class PenggunaController extends Controller
     public function destroy(string $id)
     {
         //
+        $pengguna = Pengguna::findOrFail($id);
+       $pengguna->delete();
+       return redirect()->route('penggunas.index')->with('success', 'Pengguna berhasil dihapus.');
     }
 }
