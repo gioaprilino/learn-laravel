@@ -6,12 +6,15 @@ use App\Http\Controllers\DashboardController;
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\mahasiswa\MahasiswaController;
+use App\Http\Controllers\BookController;
+use App\Http\Controllers\SaleController;
 use App\Http\Controllers\TeknisiController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DosenController;
 use App\Http\Controllers\DosenpnpController;
 use App\Http\Controllers\DosentiController;
 use App\Http\Controllers\PenggunaController;
+use App\Http\Controllers\ReportController;
 
 
 Route::get('mahasiswa', action: [MahasiswaController::class, 'index']);
@@ -294,6 +297,16 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::middleware(['auth', 'admin'])->group(function () {
         Route::resource('penggunas', PenggunaController::class);
+        Route::resource('books', BookController::class);
+        Route::resource('sales', SaleController::class);
+        Route::get('/publishing-reports', [ReportController::class, 'publishingIndex'])->name('publishing.reports.index');
+        Route::get('/sales-reports', [ReportController::class, 'salesIndex'])->name('sales.reports.index');
+        Route::get('/laporan/penerbitan/pdf', [ReportController::class, 'exportPenerbitanPdf'])->name('laporan.penerbitan.pdf');
+        Route::get('/laporan/penjualan/pdf', [ReportController::class, 'exportPenjualanPdf'])->name('laporan.penjualan.pdf');
+
+
+Route::get('/laporan/penerbitan/excel', [ReportController::class, 'exportPenerbitanExcel'])->name('laporan.penerbitan.excel');
+Route::get('/laporan/penjualan/excel', [ReportController::class, 'exportPenjualanExcel'])->name('laporan.penjualan.excel');
     });
 });
 

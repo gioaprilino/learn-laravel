@@ -20,6 +20,14 @@
                         {{ __('Pengguna') }}
                     </x-nav-link>
                     @endif
+                    @if (auth()->user()->role==='admin')
+                    <x-nav-link :href="route('books.index')" :active="request()->routeIs('books.*')">
+                        {{ __('Book') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('sales.index')" :active="request()->routeIs('sales.*')">
+                        {{ __('Sale') }}
+                    </x-nav-link>
+                    @endif
                 </div>
             </div>
 
